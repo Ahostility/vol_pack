@@ -3,6 +3,7 @@ import sys
 import uuid
 from vol_tech.dirs import DIR_VOL
 from datetime import datetime
+from pathlib import Path
 
 
 class Volatility:
@@ -32,7 +33,7 @@ class Volatility:
 	# Running commands in sequence
 
 	def vol_write(self):
-		with open(str(self.result_path) + str(uuid.uuid4()) + '.txt', 'w') as out_file:
+		with open(str(self.result_path) + str(Path(self.file_path).name) + '.txt', 'w') as out_file:
 			for plugin in self.plugins:
 				res = sp.run(['python', DIR_VOL, '-f', self.file_path, plugin],
 					stdout=sp.PIPE,
@@ -45,5 +46,6 @@ class Volatility:
 if __name__ == '__main__':
 	start_time = datetime.now()
 	obj = Volatility(sys.argv[1], sys.argv[2])
+
 	obj.vol_write()
 	print(datetime.now() - start_time)
