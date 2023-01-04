@@ -33,7 +33,7 @@ class Volatility:
 	# Running commands in sequence
 
 	def vol_write(self):
-		with open(str(self.result_path) + str(Path(self.file_path).name) + '.txt', 'w') as out_file:
+		with open(str(self.result_path) + str(Path(self.file_path).stem) + '.txt', 'w') as out_file:
 			for plugin in self.plugins:
 				res = sp.run(['python', DIR_VOL, '-f', self.file_path, plugin],
 					stdout=sp.PIPE,
